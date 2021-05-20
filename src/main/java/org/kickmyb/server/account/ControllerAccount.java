@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.concurrent.TimeUnit;
+
 
 // Jersey based web service that provides endpoints for
 // signin signup and signout in spring security
@@ -32,6 +34,11 @@ public class ControllerAccount {
 
     @PostMapping("/api/id/signin")
     public @ResponseBody SigninResponse signin(@RequestBody  SigninRequest s) throws BadCredentialsException {
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("ID : SIGNIN request " + s);
         s.username = s.username.trim().toLowerCase();
         try {
@@ -51,6 +58,11 @@ public class ControllerAccount {
 
     @PostMapping("/api/id/signup")
     public @ResponseBody SigninResponse signup(@RequestBody SignupRequest s) throws BadCredentialsException {
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("ID : SIGNUP request " + s);
         userService.signup(s);
         SigninRequest req = new SigninRequest();
@@ -62,6 +74,11 @@ public class ControllerAccount {
 
     @PostMapping("/api/id/signout")
     public @ResponseBody String signout() throws BadCredentialsException {
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("ID : SIGNOUT REQUEST " );
         // clear the authentication in the session-based context
         SecurityContextHolder.getContext().setAuthentication(null);

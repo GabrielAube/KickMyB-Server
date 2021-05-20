@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 // This is JAX-RS Jersey style annotations
 // Can be mixed with Spring Security security
@@ -24,6 +25,11 @@ public class ControllerTask {
 
 	@PostMapping("/api/add")
 	public @ResponseBody String addOne(@RequestBody AddTaskRequest request) throws Existing {
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("KICKB SERVER : Add a task : " + request.name);
 		MUser user = currentUser();
 		serviceTask.addOne(request, user);
@@ -34,6 +40,11 @@ public class ControllerTask {
 	public @ResponseBody String updateProgress(
 			@PathVariable long taskID,
 			@PathVariable int value)  {
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("KICKB SERVER : Progress for task : "+taskID + " @" + value);
 		MUser user = currentUser();
 		serviceTask.updateProgress(taskID,  value);
@@ -42,6 +53,11 @@ public class ControllerTask {
 
 	@GetMapping("/api/home")
 	public @ResponseBody List<HomeItemResponse> home() {
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("KICKB SERVER : Task list  with cookie" );
 		MUser user = currentUser();
 		return serviceTask.home(user.id);
@@ -49,6 +65,11 @@ public class ControllerTask {
 
     @GetMapping("/api/detail/{id}")
     public @ResponseBody TaskDetailResponse detail(@PathVariable long id) {
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("KICKB SERVER : Detail  with cookie " );
 		MUser user = currentUser();
 		return serviceTask.detail(id, user);
